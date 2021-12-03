@@ -92,6 +92,9 @@ function Point.__mul(this, that)
  p:mul(that:getX(),that:getY(),that:getZ())
  return p
 end
+function Point:translate(vector)
+  return self * vector
+end  
 function Point:toCircle(radius,color)
   if(self.c ~=nil)
   then
@@ -130,8 +133,11 @@ print("mul")
 print(p:toString())
 print(v3:toString())
 print(v3:magn())
-p = p * v3
+p1 = p:clone()
+p  = p * v3
+p1 = p1:translate(v3)
 print(p:toString())
+print(p1:toString())
 end
 
 return Point

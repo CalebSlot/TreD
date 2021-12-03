@@ -44,7 +44,11 @@ function Vector:mul(val)
   self.Y = self.Y * val
   self.Z = self.Z * val
 end 
-
+function Vector:scale(x,y,z)
+  self.X = self.X * x
+  self.Y = self.Y * y
+  self.Z = self.Z * z
+end 
 function Vector:norm()
     v       = self:clone()
     v:normUpdate()
