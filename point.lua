@@ -15,6 +15,13 @@ function Point:new(vX,vY,vZ)
       point.c = nil
       return point
 end
+function Point:clone()
+    local p = Point:new()
+    p:setX(self.X)
+    p:setY(self.Y)
+    p:setZ(self.Z)
+    return p
+end
 function Point:setX(val)
  self.X = val
 end
@@ -43,16 +50,20 @@ function Point:sub(x,y,z)
   self.Y = self.Y - y
   self.Z = self.Z - z
 end  
-
+function Point:mul(x,y,z)
+  self.X = self.X * x
+  self.Y = self.Y * y
+  self.Z = self.Z * z
+end 
 function Point:translate(translationVector)
-  p = Point:new()
+  local p = Point:new()
   p:add(self.X,self.Y,self.Z)
   p:add(translationVector:getX(),translationVector:getY(),translationVector:getZ())
   return p
 end  
 
 function Point:mid(endPoint)
-  p = Point:new()
+  local p = Point:new()
   local diff = endPoint - self
   p:setX(self.X + diff:getX() / 2)
   p:setY(self.Y + diff:getY() / 2)
@@ -64,19 +75,23 @@ function Point:toString()
 end
 --overload +
 function Point.__add(this, that)
- v = vector:new()
+ local v = vector:new()
  v:add(this.X,this.Y,this.Z)
  v:add(that.X,that.Y,that.Z)
  return v
 end
 --overload -
 function Point.__sub(this, that)
- v = vector:new()
+ local v = vector:new()
  v:add(this.X,this.Y,this.Z)
  v:sub(that.X,that.Y,that.Z)
  return v
 end
-
+function Point.__mul(this, that)
+ local p = this:clone()
+ p:mul(that:getX(),that:getY(),that:getZ())
+ return p
+end
 function Point:toCircle(radius,color)
   if(self.c ~=nil)
   then
@@ -89,7 +104,7 @@ end
 
 function Point:Test()
   
-p = Point:new()
+local p = Point:new()
 p:setX(5)
 print(p:toString())
 p:add(1,2,3)
@@ -108,6 +123,15 @@ print(v3:toString())
 v3 = v3 - p2
 
 print(v3:toString())
+
+v3 = p + p2
+print(v3:toString())
+print("mul")
+print(p:toString())
+print(v3:toString())
+print(v3:magn())
+p = p * v3
+print(p:toString())
 end
 
 return Point

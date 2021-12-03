@@ -39,7 +39,11 @@ function Vector:sub(x,y,z)
   self.Y = self.Y - y
   self.Z = self.Z - z
 end 
-
+function Vector:mul(val)
+  self.X = self.X * val
+  self.Y = self.Y * val
+  self.Z = self.Z * val
+end 
 
 function Vector:norm()
     v       = self:clone()
@@ -49,13 +53,25 @@ end
 function Vector:normUpdate()
   
     mag     = self:magn()
-    magnInv = 1 / mag
-    self:setX(self.X * magnInv)
-    self:setY(self.Y * magnInv)
-    self:setZ(self.Z * magnInv)
-    
+    if(mag > 0)
+     then
+      magnInv = 1 / mag
+      self:mul(magnInv)
+    end
 end
 
+function Vector:dot(other)
+  return self.X * other:getX() + self.Y * other:getY() + self.Y * other:getY()
+end
+function Vector:cross(other)
+  v = vector:new()
+  
+  v:setX(self.Y * other.getZ() - self.Z * other.getY())
+  v:setY(self.Z * other.getX() - self.X * other.getZ())
+  v:setZ(self.X * other.getY() - self.Y * other.getX())
+  
+  return v
+end
 function Vector:clone()
     v = Vector:new()
     v:setX(self.X)
@@ -74,17 +90,22 @@ function Vector:toString()
 end
 --overload +
 function Vector.__add(this, that)
- p = Vector:new()
+local p = Vector:new()
  p:add(this.X,this.Y,this.Z)
  p:add(that.X,that.Y,that.Z)
  return p
 end
 --overload -
 function Vector.__sub(this, that)
- p = Vector:new()
+local p = Vector:new()
  p:add(this.X,this.Y,this.Z)
  p:sub(that.X,that.Y,that.Z)
  return p
+end
+function Vector.__mul(this, that)
+ local v = this:clone()
+ v:mul(that)
+ return v
 end
 function Vector:Test()
   
@@ -114,6 +135,11 @@ print(p3:toString())
 p3 = p3:norm()
 print(p3:toString())
 print(p3:magn())
+
+p3 = p3*3
+print(p3:magn())
+print(p3:toString())
+
 end
 
 return Vector
