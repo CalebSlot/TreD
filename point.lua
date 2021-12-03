@@ -76,15 +76,15 @@ end
 --overload +
 function Point.__add(this, that)
  local v = vector:new()
- v:add(this.X,this.Y,this.Z)
- v:add(that.X,that.Y,that.Z)
+ v:addUpdate(this.X,this.Y,this.Z)
+ v:addUpdate(that.X,that.Y,that.Z)
  return v
 end
 --overload -
 function Point.__sub(this, that)
  local v = vector:new()
- v:add(this.X,this.Y,this.Z)
- v:sub(that.X,that.Y,that.Z)
+ v:addUpdate(this.X,this.Y,this.Z)
+ v:subUpdate(that.X,that.Y,that.Z)
  return v
 end
 function Point.__mul(this, that)
