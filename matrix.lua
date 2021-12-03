@@ -1,6 +1,9 @@
 local vector = require("vector")
-local quad = require("quad")
+local quad   = require("quad")
+
 Matrix = {}
+
+
 
 Matrix.__index = Matrix
 

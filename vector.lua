@@ -1,5 +1,5 @@
-
 Vector = {}
+
 
 Vector.__index = Vector
 
@@ -55,6 +55,7 @@ function Vector:normUpdate()
     self:setZ(self.Z * magnInv)
     
 end
+
 function Vector:clone()
     v = Vector:new()
     v:setX(self.X)

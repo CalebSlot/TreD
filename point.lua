@@ -1,7 +1,7 @@
-
 local vector = require("vector")
 
 Point = {}
+
 
 Point.__index = Point
 
@@ -12,6 +12,7 @@ function Point:new(vX,vY,vZ)
       point.X = vX or 0
       point.Y = vY or 0
       point.Z = vZ or 0
+      point.c = nil
       return point
 end
 function Point:setX(val)
@@ -75,6 +76,17 @@ function Point.__sub(this, that)
  v:sub(that.X,that.Y,that.Z)
  return v
 end
+
+function Point:toCircle(radius,color)
+  if(self.c ~=nil)
+  then
+    display.remove(self.c)
+  end
+  self.c = display.newCircle(self.X,self.Y,radius)
+  self.c:setFillColor(unpack(color))
+
+end
+
 function Point:Test()
   
 p = Point:new()
