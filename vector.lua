@@ -72,6 +72,18 @@ function Vector:rotate(axis,angle)
   then
      cosTheta  = 0
      sinTheta  = -1
+  elseif(angle == -90)
+  then
+    cosTheta = 0
+    sinTheta = -1
+  elseif(angle == -180)
+  then
+     cosTheta  = 1
+     sinTheta  = 0
+  elseif(angle == -270)
+  then
+     cosTheta  = 0
+     sinTheta  = 1
   else  
      local radAngle = math.rad(angle)
      cosTheta       = math.cos(radAngle)
@@ -183,7 +195,7 @@ vtorot:setX(1)
 vtorot:setY(1)
 print(vtorot:toString())
 local vaxis = Vector:new()
-vaxis:setZ(1)
+vaxis:setX(1)
 print(vaxis:toString())
 local vrotated = vtorot:rotate(vaxis,90)
 print(vrotated:toString())

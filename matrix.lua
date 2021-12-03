@@ -75,6 +75,18 @@ function Matrix:rotationZ(zRot)
   then
      cos  = 0
      sin  = -1
+  elseif(zRot == -90)
+  then
+    cos = 0
+    sin = -1
+  elseif(zRot == -180)
+  then
+     cos  = 1
+     sin  = 0
+  elseif(zRot == -270)
+  then
+     cos  = 0
+     sin  = 1
   else  
     zRot = math.rad(zRot)
     cos  = math.cos(zRot)
@@ -103,6 +115,7 @@ function Matrix:toString()
 end
 
 function Matrix:Test()
+  print("matrixRot90Z")
   m = Matrix:new()
   print(m:toString())
   m:rotationZ(90)
