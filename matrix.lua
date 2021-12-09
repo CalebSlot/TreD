@@ -40,6 +40,22 @@ function Matrix:multiplyQ(quadQ)
   return q
 end
 
+function Matrix:identityUpdate()
+  self.X:setX(1)
+  self.X:setY(0)
+  self.X:setZ(0)
+  self.Y:setX(0)
+  self.Y:setY(1)
+  self.Y:setZ(0)
+  self.Z:setX(0)
+  self.Z:setY(0)
+  self.Z:setZ(1)
+end
+function Matrix:identity()
+   m = Matrix:new()
+   m:identiyUpdate()
+   return m
+end
 function Matrix:multiplyUpdateQ(quadQ)
   
   primo   = quadQ:getFirst()
@@ -125,7 +141,9 @@ function Matrix:Test()
   v:setY(1)
   v:setZ(1)
   v = m:multiplyV(v)
-  print(v:toString())
+  print("IDENTITY")
+  m:identityUpdate()
+  print(m:toString())
 end
 
 return Matrix
